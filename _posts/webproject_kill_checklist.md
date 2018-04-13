@@ -1,15 +1,39 @@
 # Easy way to kill your site
 
-Recently I was badsurpeized by meeting one-typed and easily solved issues in absolutely different web projects. And they all were not about the base, languages, business areas or monetization schemes. They were rather about “lack of time and opportunity, no way lack of knowledge”. So sad, so true, but rapid development played evil joke to the projects. It provoked millions of so-to-say trash-code lines colonize the web. 
-And I dare say, although those temporary architectural solutions are still working, they will  bring problems in future or are already doing this. The huge flow of new demands and tasks leaves no time to make up the infrastructure, making the code to be the least priority at all. If the described above drives you nostalgic or irritated as you face it right now, you are at your survival plan START point. 
-p.s. Dearest thoughtful reader, you may consider this article to be for high load only. But what’s wrong with the high load rates? I suppose this to be ambitious!
-So, in my opinion, any effective survival needs a proper plan, I suggest dividing the issues we may meet into 5 major groups. 
+I'm a good guy. I'm feeling happy when my projects feel themselves good. and feel myself like a shit when have heavy troubles with them. I can't believe there is a coder, that doesn't care. 
 
-Group 1: the base
-It’s no secret, all the nastiest web project problems are somehow connected with database. With the help if DNS-balancing or upstream directive in the nginx-configuration we can easily paste it together. Hello again, my thoughtful reader,  with your questioning about the clasterization. That’s the point! I personally observe almost ruined database cluster already three times in my career. It was twice for MySQL and once MongoDB. No Index set, no tables’ make up, while the expensive servers are being paid for the cluster. And they unfortunately have to cope with the mess of unindexed data and unused index during entropy. 
-This group of issues is commonly spread within the teams who separate backend-developers from the admins/DevOps/NOC. 
-And it’s really dangerous to keep your base in such a moldy state as you are in one step of losing it all. Your orders, clients, SEO page rank may disappear in a sec. 
-There is a “brilliant” solution some apply, while the database is crushing, is to imply performance improvement. Here I only stay away and wait for the final explosion. Bum! As nothing could already be done now. 
+But recently I was badsurpeized by meeting one-typed and easily ИЗБЕГАЕМЫЕ problems in different web projects. Different databases, language, business areas or monetization schemes. The only common point is about “lack of time to rewrite”. So sad, so true, but rapid development played evil joke to the code quality on theese projects. The same rapid development that made the projects so popular, fast growing and profitable.
+
+In some cases i was ready to believe that problems have occured not accidentally, but within a plan of some "bad guy" in the team, that does enjoy working with thick project. Sounds a bit paranoic, isn't it? 
+
+Yeah, I do understand there are no any "bad guy". Project has a lot of temporary architectural solutions, that are still working, but will bring problems in future or are already doing this. The huge flow of new requrenments and tasks leaves no time to refacor the infrastructure, making the code quality to be the least priority at all. 
+
+But we do need "bad guy" for a nice fight between evil and goodness in our story. And this is not chess, so black are going first. Do you want a know how to harm you project down and heal it up? So, let me show.
+
+
+Group 1: database
+To slow down any web project bad guys usually operate with database. They do know that with the help if DNS-balancing or upstream directive in the nginx-configuration we can easily scale up any other thing, except db. Hello again, my thoughtful reader,  with your questioning about the clusterization. That’s the point! First thing bad guys do with problematic huge db is the clusterization itself. 
+
+But first they have to rape database to the state when no single server can operate with it. This can be easy done with several simple rules.
+- No needed indexes. At all. Let server die under tonns of unindexed data.
+- Unused indexes. Let server build exceed indexes in the name of entrophy.
+- Too heavy rows bc of non-optimized fields types and exceed denormalized fields. 
+- Creating centralized "table of god", that should be heavy enough to make ALTER TABLE impossible;
+- Kill bothering db monitoring tool or just mute it's notifications
+
+I personally observe almost ruined database cluster already three times in my career. It was twice for MySQL and once MongoDB. No indices set, no tables’ make up, while the expensive servers are being groupped in the cluster. And they unfortunately have to cope with the mess of unindexed data and also build unused indices in the name of entropy.
+
+This group of issues is commonly spread within the teams who separate backend-developers from the admins/DevOps/NOC. So, bad guys here are programmers themselves, that do not have to care about performance. And admins know nothing about app's buiseness logic, so they have lack of information needed for db optimization. Not even look like a monkeys sawing own tree, but closer to a nuclear bomb beating bc 
+
+And it’s really dangerous to keep your data in such a moldy state as you are in one step of losing it all. Your orders, clients, SEO page rank may disappear in a sec.
+
+So, here are few easy ways for bad guys to harm the project down.
+
+optimize code
+Genius bad guys can start project optimization without database. This is a perfect way to lead good guys on a way to abyss. In fact it only looks like a usefull job.
+For good guys: optimization can start from code only if you really do have profiling results that do surely show bottleneck outside db.
+
+
 «n+1» Issue
 It appeared to be two major ways of database ruining with your own hands. And to tell the truth, some months ago I was absolutely unaware of the one of them. As it really used to take place ages ago. Have you ever heard about the “n+1 Issue”? I do recall something like that in my junior developer’s past. I swear I could hardly imagine to meet it in a commercial production. But here it is. For your better understanding I’ll prove it with pseudo-code:
 
